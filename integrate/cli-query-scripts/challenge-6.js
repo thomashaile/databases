@@ -10,16 +10,20 @@ const DB_PATH = path.join(__dirname, '..', 'chinook.sqlite');
 
 const db = new sqlite3.Database(DB_PATH);
 
-const userInput = {};
+const userInput = {
+    column: process.argv[2],
+    start_at: process.argv[3],
+    number: process.argv[4]
+};
 
-const queryString = ``;
+const queryString = `SELECT ${userInput.column} FROM Artist LIMIT ${userInput.start_at},${userInput.number}`;
 
 db.all(queryString, (err, rows) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(rows);
-  }
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(rows);
+    }
 
-  db.close();
+    db.close();
 });

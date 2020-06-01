@@ -10,17 +10,20 @@ const DB_PATH = path.join(__dirname, '..', 'chinook.sqlite');
 
 const db = new sqlite3.Database(DB_PATH);
 
-const userInput = {};
+const userInput = {
+    table_name: process.argv[2],
+    order_by: process.argv[3],
+    sort: process.argv[4]
+};
 
-const queryString = ``;
+const queryString = `SELECT * FROM ${userInput.table_name} ORDER BY ${userInput.order_by} ${userInput.sort}`;
 
 db.all(queryString, (err, rows) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(rows);
-  }
+    if (err) {
+        console.error(err);
+    } else {
+        console.log(rows);
+    }
 
-  db.close();
+    db.close();
 });
-
